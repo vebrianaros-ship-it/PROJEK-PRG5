@@ -1,0 +1,30 @@
+semua prosesnya masih manual
+ada yang memiliki 1 dosen pembimbing ada yang 2 dospem yang berhak menjadi dospemn itu sarjana
+mahasiswa dibagi menajdi 1 kelompok ada yang 1 dan ada yang 2 orang ini maksimal
+asisten Ahli ini nanti akan menjadi pemimpin sidang 
+memakai data yang lama (berangkapan data dummy)
+
+1 kelompok pkta bisa 1 atau 2 dosen
+persyataran untuk mengikuti demo adalah menyertakan formular pendaftaran demo, penyelesaian revisi seminar
+kalau demo itu diutamakan itu dospem utamanya, ada 3 penguji, penguji 1 itu dospem Utama, penguji 2 itu dicari, penguji 3 itu dosen industry
+
+nanti pengajar bisa mengisi jadwalnya(bersedia/tidak)
+
+saran mahasiswa mengirim 2 formular mahasiswa disarankan untuk bisa mengirimkan lokasi, tanggal, dospem yang bisa hadir, dan dosen pengujinya siapa jadi nantinya pic pkta tidak usah melihat lagi agar lebih mudah (bisa diakses oleh dospem, penguji, penguji industry)
+
+kalau misalnya boleh menjadi s.kom tetapi kalo penguji itu boleh yang tidak diakses
+
+demo aplikasi bisa diakses oleh semua pengajar MI dan TRPL(masih jadi dospem)
+
+itu data Utama (Master Data Dosen AA)
+
+penguji 2 itu harus available (harus tanggung jawab yang nulis (mahasiswa))
+
+jangan sampai kalau sudah menulis jadwalnya di penguji itu tidak dating
+
+
+MAKSIMAL MAHASISWA MENDAFTAR ITU 3 HARI SEBELUMNYA 
+
+Kalau yang sudah daftar tetapi ingin mengubahnya tetapi harus daftar ulang lagi
+
+untuk database itu bikin sendiri menggunakan MySQL

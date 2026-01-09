@@ -1,0 +1,14 @@
+Sidang
+
+PIC PKTA akan menulis nama dosen dan harus S2 
+PIC PKTA nanti akan menuliskan tanggal sidang (bertanggung jawab)
+PIC PKTA nanti akan melihat siapa mahasiswa yang akan sidang
+jadi validasi selain Dosen AA (Apakah anggota sidang menjadi dosen pembimbing)
+
+ada beban (yang nantinya akan di isi oleh PIC PKTA), misalnya bebannya itu ada 10, bu arie memiliki beban 8 kelompok sisa 2 itu bebas memilih itu anggota atau sekretaris, kalau lebih itu tidak di perbolehkan
+
+available sidang nantinya akan di isikan sendiri 
+
+yang boleh mengakses itu adalah mahasiswa(tingkat III) dan pengajar
+
+TEMANYA NANTI DISAMAKAN SAMA KELOMPOK SATU NYA
