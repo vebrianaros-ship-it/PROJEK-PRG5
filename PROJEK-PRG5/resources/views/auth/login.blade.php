@@ -25,6 +25,18 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
+        }
+
+        /* Hide scrollbar for all browsers */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        html {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            overflow: hidden;
         }
 
         body::before {

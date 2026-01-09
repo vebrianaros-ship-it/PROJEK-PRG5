@@ -25,6 +25,17 @@
             flex-direction: column;
             position: relative;
             overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        /* Hide scrollbar for all browsers */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        html {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         /* Header Navigation */
