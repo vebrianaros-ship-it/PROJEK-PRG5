@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Captcha</title>
+</head>
+<body>
+    <h1>Test Captcha</h1>
+    <img src="/captcha" alt="Captcha" id="captcha-img">
+    <br><br>
+    <button onclick="refreshCaptcha()">Refresh Captcha</button>
+    
+    <script>
+        function refreshCaptcha() {
+            document.getElementById('captcha-img').src = '/captcha?' + Math.random();
+        }
+    </script>
+</body>
+</html>
