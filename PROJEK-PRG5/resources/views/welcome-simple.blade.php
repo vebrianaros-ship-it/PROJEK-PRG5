@@ -204,76 +204,6 @@
             line-height: 1.5;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            min-width: 140px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(30, 60, 114, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #2a5298;
-            border: 2px solid #2a5298;
-        }
-
-        .btn-secondary:hover {
-            background: #2a5298;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(42, 82, 152, 0.2);
-        }
-
-        .features {
-            margin-top: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-        }
-
-        .feature-item {
-            background: rgba(42, 82, 152, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .feature-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #2a5298;
-        }
-
-        .feature-text {
-            color: #495057;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
         @media (max-width: 768px) {
             .nav-container {
                 padding: 0 20px;
@@ -322,16 +252,6 @@
             
             .welcome-title {
                 font-size: 28px;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 250px;
             }
         }
 
@@ -486,31 +406,7 @@
                     dengan teknologi terdepan dan pembelajaran yang inovatif.
                 </div>
             </div>
-
-            <div class="action-buttons">
-                <a href="{{ route('login') }}" class="btn btn-primary">Masuk</a>
-                <a href="{{ route('register') }}" class="btn btn-secondary">Daftar</a>
-            </div>
         @endauth
-
-        <div class="features">
-            <div class="feature-item">
-                <div class="feature-icon">🎓</div>
-                <div class="feature-text">Sistem Akademik</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">📚</div>
-                <div class="feature-text">E-Learning</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">💼</div>
-                <div class="feature-text">Portal Mahasiswa</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">📊</div>
-                <div class="feature-text">Laporan Akademik</div>
-            </div>
-        </div>
     </div>
     </div> <!-- Close main-content -->
 

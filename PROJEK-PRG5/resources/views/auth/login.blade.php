@@ -185,6 +185,28 @@
             box-shadow: 0 10px 20px rgba(30, 60, 114, 0.3);
         }
 
+        .back-button {
+            width: 100%;
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(108, 117, 125, 0.3);
+            background: linear-gradient(135deg, #5a6268, #3d4142);
+        }
+
         .register-link {
             text-align: center;
             margin-top: 30px;
@@ -287,6 +309,10 @@
 
             <button type="submit" class="login-button">
                 Masuk
+            </button>
+
+            <button type="button" onclick="window.location.href='{{ url('/') }}'" class="back-button">
+                KEMBALI
             </button>
 
             <div class="register-link">
