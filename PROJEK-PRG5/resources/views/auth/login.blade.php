@@ -13,7 +13,13 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: 
+                linear-gradient(135deg, rgba(30, 60, 114, 0.6) 0%, rgba(42, 82, 152, 0.6) 100%),
+                url('/assets/BackgroundLoginAstra.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -35,64 +41,62 @@
         .login-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 80px 60px;
             width: 100%;
-            max-width: 450px;
+            max-width: 700px;
             position: relative;
             z-index: 1;
         }
 
         .logo-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
         }
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 15px;
+        .logo-favicon {
+            width: 120px;
+            height: auto;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 8px 25px rgba(30, 60, 114, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-favicon:hover {
+            transform: scale(1.1);
         }
 
         .institution-name {
             color: #1e3c72;
-            font-size: 24px;
+            font-size: 32px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .institution-subtitle {
             color: #666;
-            font-size: 14px;
+            font-size: 18px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 35px;
         }
 
         .form-label {
             display: block;
             color: #333;
             font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
+            margin-bottom: 12px;
+            font-size: 18px;
         }
 
         .form-input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 18px 22px;
             border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 18px;
             transition: all 0.3s ease;
             background: #f8f9fa;
         }
@@ -106,15 +110,17 @@
 
         .captcha-container {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             align-items: center;
         }
 
         .captcha-image {
             border: 2px solid #e1e5e9;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: border-color 0.3s ease;
+            width: 140px;
+            height: 50px;
         }
 
         .captcha-image:hover {
@@ -129,10 +135,10 @@
             background: #2a5298;
             color: white;
             border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 12px 16px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 16px;
             transition: background 0.3s ease;
         }
 
@@ -143,19 +149,19 @@
         .remember-me {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 35px;
         }
 
         .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             accent-color: #2a5298;
         }
 
         .remember-me label {
             color: #666;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
         }
 
@@ -164,9 +170,9 @@
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 16px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 20px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -181,13 +187,14 @@
 
         .register-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .register-link a {
             color: #2a5298;
             text-decoration: none;
             font-weight: 500;
+            font-size: 16px;
             transition: color 0.3s ease;
         }
 
@@ -226,7 +233,7 @@
 <body>
     <div class="login-container">
         <div class="logo-section">
-            <div class="logo">PA</div>
+            <img src="/assets/favicon.ico" alt="Astra Logo" class="logo-favicon">
             <div class="institution-name">POLITEKNIK ASTRA</div>
             <div class="institution-subtitle">Sistem Informasi Akademik</div>
         </div>
