@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Datang - Politeknik Astra</title>
+    <title>About - Politeknik Astra</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
     <style>
         * {
             margin: 0;
@@ -36,6 +38,7 @@
         html {
             -ms-overflow-style: none;
             scrollbar-width: none;
+            overflow: hidden;
         }
 
         /* Header Navigation */
@@ -104,7 +107,7 @@
             position: relative;
         }
 
-        .nav-item:hover {
+        .nav-item:hover, .nav-item.active {
             background: rgba(255, 255, 255, 0.1);
             transform: translateY(-2px);
         }
@@ -129,35 +132,20 @@
             padding-top: 100px;
         }
 
-        /* Background pattern */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
-            opacity: 0.3;
-        }
-
-        .welcome-container {
+        .about-container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             padding: 60px 40px;
             width: 100%;
-            max-width: 600px;
-            text-align: center;
+            max-width: 800px;
             position: relative;
             z-index: 1;
         }
 
         .logo-section {
+            text-align: center;
             margin-bottom: 40px;
         }
 
@@ -169,7 +157,7 @@
         }
 
         .astra-favicon-logo {
-            width: 150px;
+            width: 100px;
             height: auto;
             filter: drop-shadow(0 8px 25px rgba(30, 60, 114, 0.3));
             transition: transform 0.3s ease;
@@ -179,7 +167,7 @@
             transform: scale(1.05);
         }
 
-        .welcome-title {
+        .page-title {
             color: #1e3c72;
             font-size: 32px;
             font-weight: bold;
@@ -187,32 +175,59 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .welcome-subtitle {
+        .page-subtitle {
             color: #666;
             font-size: 18px;
             margin-bottom: 40px;
             line-height: 1.6;
         }
 
-        .institution-info {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 40px;
-            border-left: 5px solid #2a5298;
+        .content-section {
+            margin-bottom: 30px;
         }
 
-        .institution-name {
+        .section-title {
             color: #1e3c72;
             font-size: 24px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2a5298;
+            padding-left: 15px;
         }
 
-        .institution-description {
+        .section-content {
             color: #495057;
             font-size: 16px;
-            line-height: 1.5;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border-left: 5px solid #2a5298;
+        }
+
+        .stat-number {
+            color: #1e3c72;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         @media (max-width: 768px) {
@@ -256,99 +271,14 @@
                 border-bottom: none;
             }
             
-            .welcome-container {
+            .about-container {
                 margin: 20px;
                 padding: 40px 25px;
             }
             
-            .welcome-title {
+            .page-title {
                 font-size: 28px;
             }
-        }
-
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .floating-element {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-element:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-element:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            top: 20%;
-            right: 10%;
-            animation-delay: 2s;
-        }
-
-        .floating-element:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            bottom: 10%;
-            left: 15%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        .user-info {
-            background: linear-gradient(135deg, #e8f5e8, #d4edda);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-left: 5px solid #28a745;
-        }
-
-        .user-welcome {
-            color: #155724;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .user-details {
-            color: #495057;
-            font-size: 14px;
-        }
-
-        .logout-form {
-            display: inline;
-        }
-
-        .btn-logout {
-            background: linear-gradient(135deg, #dc3545, #c82333);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-logout:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
         }
     </style>
 </head>
@@ -362,9 +292,9 @@
             </div>
             <nav class="nav-menu" id="navMenu">
                 <a href="{{ url('/') }}" class="nav-item">Home</a>
-                <a href="{{ route('about') }}" class="nav-item">About</a>
-                <a href="{{ route('services') }}" class="nav-item">Services</a>
-                <a href="{{ route('contact') }}" class="nav-item">Contact</a>
+                <a href="{{ url('/about') }}" class="nav-item active">About</a>
+                <a href="{{ url('/services') }}" class="nav-item">Services</a>
+                <a href="{{ url('/contact') }}" class="nav-item">Contact</a>
                 <a href="{{ route('login') }}" class="nav-item login-btn">Login</a>
             </nav>
             <button class="mobile-menu-toggle" id="mobileToggle">☰</button>
@@ -373,53 +303,59 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="floating-elements">
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-        </div>
-
-    <div class="welcome-container">
-        <div class="logo-section">
-            <!-- Astra Logo from favicon.ico -->
-            <div class="astra-logo-container">
-                <img src="/assets/favicon.ico" alt="Astra Logo" class="astra-favicon-logo">
-            </div>
-        </div>
-
-        <h1 class="welcome-title">Selamat Datang di Aplikasi Kami</h1>
-        <p class="welcome-subtitle">
-            Sistem Informasi Akademik Politeknik Astra<br>
-            Platform digital untuk mendukung kegiatan akademik dan administrasi
-        </p>
-
-        @auth
-            <div class="user-info">
-                <div class="user-welcome">Selamat datang, {{ Auth::user()->name }}!</div>
-                <div class="user-details">
-                    Username: {{ Auth::user()->username }}<br>
-                    Email: {{ Auth::user()->email }}
+        <div class="about-container">
+            <div class="logo-section">
+                <div class="astra-logo-container">
+                    <img src="/assets/favicon.ico" alt="Astra Logo" class="astra-favicon-logo">
                 </div>
             </div>
 
-            <div class="action-buttons">
-                <a href="{{ route('dashboard') }}" class="btn btn-primary">Dashboard</a>
-                <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                    @csrf
-                    <button type="submit" class="btn-logout">Logout</button>
-                </form>
+            <h1 class="page-title">Tentang Politeknik Astra</h1>
+            <p class="page-subtitle">
+                Institusi pendidikan tinggi terkemuka yang berkomitmen menghasilkan lulusan berkualitas dengan teknologi terdepan dan pembelajaran yang inovatif.
+            </p>
+
+            <div class="content-section">
+                <h2 class="section-title">Visi</h2>
+                <p class="section-content">
+                    Menjadi politeknik terdepan di Indonesia yang menghasilkan lulusan berkarakter, kompeten, dan siap kerja dalam bidang teknologi dan industri otomotif.
+                </p>
             </div>
-        @else
-            <div class="institution-info">
-                <div class="institution-name">POLITEKNIK ASTRA</div>
-                <div class="institution-description">
-                    Institusi pendidikan tinggi yang berkomitmen menghasilkan lulusan berkualitas 
-                    dengan teknologi terdepan dan pembelajaran yang inovatif.
+
+            <div class="content-section">
+                <h2 class="section-title">Misi</h2>
+                <p class="section-content">
+                    Menyelenggarakan pendidikan vokasi berkualitas tinggi, mengembangkan penelitian terapan yang bermanfaat bagi industri, dan memberikan layanan kepada masyarakat melalui pengabdian yang berkelanjutan.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Tahun Pengalaman</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-label">Alumni</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Dosen Ahli</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Program Studi</div>
                 </div>
             </div>
-        @endauth
+
+            <div class="content-section">
+                <h2 class="section-title">Keunggulan</h2>
+                <p class="section-content">
+                    Politeknik Astra memiliki fasilitas laboratorium modern, kerjasama industri yang kuat, kurikulum yang selalu update sesuai kebutuhan industri, dan tenaga pengajar yang berpengalaman di bidangnya masing-masing.
+                </p>
+            </div>
+        </div>
     </div>
-    </div> <!-- Close main-content -->
 
     <script>
         // Mobile menu toggle
