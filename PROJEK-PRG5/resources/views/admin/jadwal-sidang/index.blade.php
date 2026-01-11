@@ -7,22 +7,50 @@
             <!-- Header Section -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h2 class="mb-1"><i class="fas fa-chalkboard-teacher text-primary"></i> Data Dosen</h2>
-                    <p class="text-muted mb-0">Kelola data dosen dan informasi akademik</p>
+                    <h2 class="mb-1"><i class="fas fa-gavel text-primary"></i> Jadwal Sidang Akhir</h2>
+                    <p class="text-muted mb-0">Kelola penjadwalan Sidang Akhir mahasiswa</p>
                 </div>
-                <a href="{{ route('admin.dosen.create') }}" class="btn btn-primary btn-lg">
-                    <i class="fas fa-plus"></i> Tambah Dosen
+                <a href="{{ route('admin.jadwal-sidang.create') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-plus"></i> Buat Jadwal Sidang
                 </a>
             </div>
+
+            <!-- Kelompok Siap Sidang Alert -->
+            @if($kelompokSiapSidang->count() > 0)
+            <div class="alert alert-info shadow-sm mb-4">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-graduation-cap fa-2x text-info me-3"></i>
+                    <div>
+                        <h5 class="mb-1">Kelompok Siap Sidang</h5>
+                        <p class="mb-0">{{ $kelompokSiapSidang->count() }} kelompok telah selesai demo dan siap dijadwalkan sidang</p>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach($kelompokSiapSidang as $kelompok)
+                    <div class="col-md-6 mb-2">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-users text-info me-2"></i>
+                            <strong>{{ $kelompok->nama_kelompok }}</strong>
+                            <span class="ms-auto">
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check"></i> Demo Selesai
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
 
             <!-- Stats Cards -->
             <div class="row mb-4">
                 <div class="col-md-3">
                     <div class="card bg-gradient-primary text-white stats-card">
                         <div class="card-body text-center">
-                            <i class="fas fa-users fa-2x mb-3"></i>
-                            <h3 class="mb-2">{{ $dosen->total() }}</h3>
-                            <p class="mb-0">Total Dosen</p>
+                            <i class="fas fa-gavel fa-2x mb-3"></i>
+                            <h3 class="mb-2">{{ $jadwalSidang->total() }}</h3>
+                            <p class="mb-0">Total Jadwal Sidang</p>
                             <div class="stats-progress">
                                 <div class="progress-bar"></div>
                             </div>
@@ -32,21 +60,9 @@
                 <div class="col-md-3">
                     <div class="card bg-gradient-success text-white stats-card">
                         <div class="card-body text-center">
-                            <i class="fas fa-crown fa-2x mb-3"></i>
-                            <h3 class="mb-2">{{ $dosen->where('is_aa', true)->count() }}</h3>
-                            <p class="mb-0">Academic Advisor</p>
-                            <div class="stats-progress">
-                                <div class="progress-bar"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card bg-gradient-info text-white stats-card">
-                        <div class="card-body text-center">
-                            <i class="fas fa-graduation-cap fa-2x mb-3"></i>
-                            <h3 class="mb-2">{{ $dosen->where('pendidikan', 'S3')->count() }}</h3>
-                            <p class="mb-0">Doktor (S3)</p>
+                            <i class="fas fa-check-circle fa-2x mb-3"></i>
+                            <h3 class="mb-2">{{ $jadwalSidang->where('status', 'terjadwal')->count() }}</h3>
+                            <p class="mb-0">Terjadwal</p>
                             <div class="stats-progress">
                                 <div class="progress-bar"></div>
                             </div>
@@ -56,9 +72,21 @@
                 <div class="col-md-3">
                     <div class="card bg-gradient-warning text-white stats-card">
                         <div class="card-body text-center">
-                            <i class="fas fa-check-circle fa-2x mb-3"></i>
-                            <h3 class="mb-2">{{ $dosen->where('status', true)->count() }}</h3>
-                            <p class="mb-0">Dosen Aktif</p>
+                            <i class="fas fa-clock fa-2x mb-3"></i>
+                            <h3 class="mb-2">{{ $kelompokSiapSidang->count() }}</h3>
+                            <p class="mb-0">Siap Sidang</p>
+                            <div class="stats-progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-gradient-info text-white stats-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-trophy fa-2x mb-3"></i>
+                            <h3 class="mb-2">{{ $jadwalSidang->where('status', 'selesai')->count() }}</h3>
+                            <p class="mb-0">Selesai</p>
                             <div class="stats-progress">
                                 <div class="progress-bar"></div>
                             </div>
@@ -71,120 +99,98 @@
             <div class="card shadow-sm">
                 <div class="card-header bg-white border-bottom">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0"><i class="fas fa-list"></i> Daftar Dosen</h5>
+                        <h5 class="mb-0"><i class="fas fa-list"></i> Daftar Jadwal Sidang Akhir</h5>
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-outline-secondary btn-sm active">
                                 <i class="fas fa-table"></i> Tabel
                             </button>
                             <button type="button" class="btn btn-outline-secondary btn-sm">
-                                <i class="fas fa-th-large"></i> Grid
+                                <i class="fas fa-calendar"></i> Kalender
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    @if($dosen->count() > 0)
+                    @if($jadwalSidang->count() > 0)
                         <div class="table-responsive">
                             <table class="table table-hover mb-0">
                                 <thead class="bg-light">
                                     <tr>
                                         <th class="border-0">No</th>
-                                        <th class="border-0">NIP</th>
-                                        <th class="border-0">Nama</th>
-                                        <th class="border-0">Pendidikan</th>
-                                        <th class="border-0">Jenis Dosen</th>
-                                        <th class="border-0">Email</th>
+                                        <th class="border-0">Kelompok</th>
+                                        <th class="border-0">Tanggal & Waktu</th>
+                                        <th class="border-0">Lokasi</th>
+                                        <th class="border-0">Ketua Sidang</th>
                                         <th class="border-0">Status</th>
                                         <th class="border-0 text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($dosen as $index => $dsn)
+                                    @foreach($jadwalSidang as $index => $jadwal)
                                     <tr class="table-row">
                                         <td class="align-middle">
                                             <strong>{{ $index + 1 }}</strong>
                                         </td>
                                         <td class="align-middle">
                                             <div>
-                                                <strong>{{ $dsn->nip }}</strong>
+                                                <strong>{{ $jadwal->kelompok->nama_kelompok }}</strong>
+                                                <br>
+                                                <small class="text-muted">
+                                                    @if($jadwal->kelompok->mahasiswa->count() > 0)
+                                                        @foreach($jadwal->kelompok->mahasiswa as $mhs)
+                                                            <i class="fas fa-user"></i> {{ $mhs->nama }}{{ !$loop->last ? ', ' : '' }}
+                                                        @endforeach
+                                                    @else
+                                                        <i class="fas fa-users-slash"></i> Belum ada anggota
+                                                    @endif
+                                                </small>
                                             </div>
                                         </td>
                                         <td class="align-middle">
-                                            <div class="d-flex align-items-center">
-                                                <div class="profile-avatar-sm me-3">
-                                                    <i class="fas fa-user-tie fa-lg text-primary"></i>
-                                                </div>
-                                                <div>
-                                                    <strong>{{ $dsn->nama }}</strong>
-                                                    <br>
-                                                    <small class="text-muted">Dosen</small>
-                                                </div>
+                                            <div>
+                                                <strong>{{ \Carbon\Carbon::parse($jadwal->tanggal)->format('d F Y') }}</strong>
+                                                <br>
+                                                <small class="text-muted">
+                                                    <i class="fas fa-clock me-1"></i>
+                                                    {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}
+                                                </small>
                                             </div>
                                         </td>
                                         <td class="align-middle">
-                                            @if($dsn->pendidikan == 'S3')
+                                            <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                            {{ $jadwal->lokasi }}
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-primary px-3 py-2">
+                                                <i class="fas fa-gavel"></i> {{ $jadwal->ketuaSidang->nama }}
+                                            </span>
+                                        </td>
+                                        <td class="align-middle">
+                                            @if($jadwal->status == 'terjadwal')
                                                 <span class="badge bg-success px-3 py-2">
-                                                    <i class="fas fa-graduation-cap"></i> {{ $dsn->pendidikan }}
+                                                    <i class="fas fa-check-circle"></i> Terjadwal
                                                 </span>
-                                            @elseif($dsn->pendidikan == 'S2')
+                                            @else
                                                 <span class="badge bg-info px-3 py-2">
-                                                    <i class="fas fa-user-graduate"></i> {{ $dsn->pendidikan }}
-                                                </span>
-                                            @else
-                                                <span class="badge bg-secondary px-3 py-2">
-                                                    <i class="fas fa-user"></i> {{ $dsn->pendidikan }}
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td class="align-middle">
-                                            @if($dsn->is_aa)
-                                                <span class="badge bg-success px-3 py-2">
-                                                    <i class="fas fa-crown"></i> Academic Advisor
-                                                </span>
-                                            @else
-                                                <span class="badge bg-secondary px-3 py-2">
-                                                    <i class="fas fa-user-tie"></i> Non-AA
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td class="align-middle">
-                                            @if(isset($dsn->user->email))
-                                                <i class="fas fa-envelope text-muted me-2"></i>
-                                                {{ $dsn->user->email }}
-                                            @else
-                                                <span class="text-muted">
-                                                    <i class="fas fa-envelope-slash me-2"></i>
-                                                    Belum ada email
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td class="align-middle">
-                                            @if($dsn->status)
-                                                <span class="badge bg-success px-3 py-2">
-                                                    <i class="fas fa-check-circle"></i> Aktif
-                                                </span>
-                                            @else
-                                                <span class="badge bg-danger px-3 py-2">
-                                                    <i class="fas fa-times-circle"></i> Tidak Aktif
+                                                    <i class="fas fa-trophy"></i> Selesai
                                                 </span>
                                             @endif
                                         </td>
                                         <td class="align-middle text-center">
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route('admin.dosen.show', $dsn) }}" 
+                                                <a href="{{ route('admin.jadwal-sidang.show', $jadwal) }}" 
                                                    class="btn btn-sm btn-outline-info" 
                                                    data-bs-toggle="tooltip" 
                                                    title="Lihat Detail">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('admin.dosen.edit', $dsn) }}" 
+                                                <a href="{{ route('admin.jadwal-sidang.edit', $jadwal) }}" 
                                                    class="btn btn-sm btn-outline-warning" 
                                                    data-bs-toggle="tooltip" 
                                                    title="Edit">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                @if($dsn->status)
-                                                <form action="{{ route('admin.dosen.destroy', $dsn) }}" 
+                                                <form action="{{ route('admin.jadwal-sidang.destroy', $jadwal) }}" 
                                                       method="POST" 
                                                       class="d-inline">
                                                     @csrf
@@ -192,12 +198,11 @@
                                                     <button type="submit" 
                                                             class="btn btn-sm btn-outline-danger" 
                                                             data-bs-toggle="tooltip" 
-                                                            title="Nonaktifkan"
-                                                            onclick="return confirm('Yakin ingin menonaktifkan dosen ini?')">
+                                                            title="Hapus"
+                                                            onclick="return confirm('Yakin ingin menghapus jadwal sidang ini?')">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
-                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -207,18 +212,18 @@
                         </div>
                         
                         <!-- Custom Pagination -->
-                        @if($dosen->hasPages())
+                        @if($jadwalSidang->hasPages())
                         <div class="d-flex justify-content-between align-items-center p-4 border-top bg-light">
                             <div class="text-muted">
                                 <i class="fas fa-info-circle me-1"></i>
-                                Menampilkan <strong>{{ $dosen->firstItem() }}</strong> - <strong>{{ $dosen->lastItem() }}</strong> 
-                                dari <strong>{{ $dosen->total() }}</strong> dosen
+                                Menampilkan <strong>1</strong> - <strong>{{ $jadwalSidang->count() }}</strong> 
+                                dari <strong>{{ $jadwalSidang->total() }}</strong> jadwal sidang
                             </div>
                             
                             <nav aria-label="Pagination Navigation">
                                 <ul class="pagination pagination-modern mb-0">
                                     {{-- Previous Page Link --}}
-                                    @if ($dosen->onFirstPage())
+                                    @if ($jadwalSidang->onFirstPage())
                                         <li class="page-item disabled">
                                             <span class="page-link">
                                                 <i class="fas fa-chevron-left"></i>
@@ -227,7 +232,7 @@
                                         </li>
                                     @else
                                         <li class="page-item">
-                                            <a class="page-link" href="{{ $dosen->previousPageUrl() }}">
+                                            <a class="page-link" href="{{ $jadwalSidang->previousPageUrl() }}">
                                                 <i class="fas fa-chevron-left"></i>
                                                 <span class="d-none d-sm-inline ms-1">Previous</span>
                                             </a>
@@ -235,8 +240,8 @@
                                     @endif
 
                                     {{-- Pagination Elements --}}
-                                    @foreach ($dosen->getUrlRange(1, $dosen->lastPage()) as $page => $url)
-                                        @if ($page == $dosen->currentPage())
+                                    @foreach ($jadwalSidang->getUrlRange(1, $jadwalSidang->lastPage()) as $page => $url)
+                                        @if ($page == $jadwalSidang->currentPage())
                                             <li class="page-item active">
                                                 <span class="page-link">{{ $page }}</span>
                                             </li>
@@ -248,9 +253,9 @@
                                     @endforeach
 
                                     {{-- Next Page Link --}}
-                                    @if ($dosen->hasMorePages())
+                                    @if ($jadwalSidang->hasMorePages())
                                         <li class="page-item">
-                                            <a class="page-link" href="{{ $dosen->nextPageUrl() }}">
+                                            <a class="page-link" href="{{ $jadwalSidang->nextPageUrl() }}">
                                                 <span class="d-none d-sm-inline me-1">Next</span>
                                                 <i class="fas fa-chevron-right"></i>
                                             </a>
@@ -270,13 +275,17 @@
                     @else
                         <div class="text-center py-5">
                             <div class="mb-4">
-                                <i class="fas fa-chalkboard-teacher fa-4x text-muted"></i>
+                                <i class="fas fa-gavel fa-4x text-muted"></i>
                             </div>
-                            <h5 class="text-muted">Belum ada dosen</h5>
-                            <p class="text-muted mb-4">Silakan tambah dosen baru untuk memulai</p>
-                            <a href="{{ route('admin.dosen.create') }}" class="btn btn-primary btn-lg">
-                                <i class="fas fa-plus"></i> Tambah Dosen Pertama
-                            </a>
+                            <h5 class="text-muted">Belum ada jadwal sidang</h5>
+                            <p class="text-muted mb-4">Silakan buat jadwal sidang untuk kelompok yang sudah selesai demo</p>
+                            @if($kelompokSiapSidang->count() > 0)
+                                <a href="{{ route('admin.jadwal-sidang.create') }}" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-plus"></i> Buat Jadwal Sidang Pertama
+                                </a>
+                            @else
+                                <p class="text-muted">Tidak ada kelompok yang siap untuk dijadwalkan sidang</p>
+                            @endif
                         </div>
                     @endif
                 </div>
@@ -335,16 +344,6 @@
 @keyframes progressAnimation {
     from { width: 0%; }
     to { width: 75%; }
-}
-
-.profile-avatar-sm {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .table-row {
@@ -473,13 +472,12 @@
 
 /* Adjust column widths */
 .table th:nth-child(1), .table td:nth-child(1) { width: 5%; } /* No */
-.table th:nth-child(2), .table td:nth-child(2) { width: 12%; } /* NIP */
-.table th:nth-child(3), .table td:nth-child(3) { width: 25%; } /* Nama */
-.table th:nth-child(4), .table td:nth-child(4) { width: 12%; } /* Pendidikan */
-.table th:nth-child(5), .table td:nth-child(5) { width: 15%; } /* Jenis Dosen */
-.table th:nth-child(6), .table td:nth-child(6) { width: 16%; } /* Email */
-.table th:nth-child(7), .table td:nth-child(7) { width: 10%; } /* Status */
-.table th:nth-child(8), .table td:nth-child(8) { width: 15%; } /* Aksi */
+.table th:nth-child(2), .table td:nth-child(2) { width: 25%; } /* Kelompok */
+.table th:nth-child(3), .table td:nth-child(3) { width: 18%; } /* Tanggal */
+.table th:nth-child(4), .table td:nth-child(4) { width: 15%; } /* Lokasi */
+.table th:nth-child(5), .table td:nth-child(5) { width: 17%; } /* Ketua */
+.table th:nth-child(6), .table td:nth-child(6) { width: 10%; } /* Status */
+.table th:nth-child(7), .table td:nth-child(7) { width: 10%; } /* Aksi */
 
 /* Tooltip Styling */
 .tooltip {

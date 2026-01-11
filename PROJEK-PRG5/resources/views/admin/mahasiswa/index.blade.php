@@ -437,6 +437,34 @@
     }
 }
 
+/* Additional table fixes */
+.table-responsive {
+    overflow-x: hidden !important;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 12px 8px;
+}
+
+.table th {
+    padding: 15px 8px;
+}
+
+/* Adjust column widths */
+.table th:nth-child(1), .table td:nth-child(1) { width: 5%; } /* No */
+.table th:nth-child(2), .table td:nth-child(2) { width: 12%; } /* NIM */
+.table th:nth-child(3), .table td:nth-child(3) { width: 25%; } /* Nama */
+.table th:nth-child(4), .table td:nth-child(4) { width: 18%; } /* Program Studi */
+.table th:nth-child(5), .table td:nth-child(5) { width: 10%; } /* Tingkat */
+.table th:nth-child(6), .table td:nth-child(6) { width: 15%; } /* Email */
+.table th:nth-child(7), .table td:nth-child(7) { width: 10%; } /* Status */
+.table th:nth-child(8), .table td:nth-child(8) { width: 15%; } /* Aksi */
+
 /* Tooltip Styling */
 .tooltip {
     font-size: 0.875rem;

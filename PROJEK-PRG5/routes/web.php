@@ -73,6 +73,9 @@ Route::middleware(['auth', 'role:pic'])->prefix('admin')->name('admin.')->group(
     Route::resource('jadwal-demo', App\Http\Controllers\Admin\JadwalDemoController::class);
     Route::get('/jadwal-demo/ajax/available-dosen', [App\Http\Controllers\Admin\JadwalDemoController::class, 'getAvailableDosen'])->name('jadwal-demo.available-dosen');
     
+    // Jadwal Demo PL management
+    Route::resource('jadwal-demo-pl', App\Http\Controllers\Admin\JadwalDemoPLController::class);
+    
     // Jadwal Sidang management
     Route::resource('jadwal-sidang', App\Http\Controllers\Admin\JadwalSidangController::class);
 });

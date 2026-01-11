@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JadwalDemo extends Model
+class JadwalDemoPL extends Model
 {
     use HasFactory;
 
-    protected $table = 'jadwal_demo';
+    protected $table = 'jadwal_demo_pl';
 
     protected $fillable = [
         'kelompok_id',
@@ -21,6 +21,7 @@ class JadwalDemo extends Model
         'penguji2',
         'penguji3',
         'status',
+        'catatan',
     ];
 
     protected $casts = [

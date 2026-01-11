@@ -419,6 +419,32 @@
     }
 }
 
+/* Additional table fixes */
+.table-responsive {
+    overflow-x: hidden !important;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 12px 8px;
+}
+
+.table th {
+    padding: 15px 8px;
+}
+
+/* Adjust column widths */
+.table th:nth-child(1), .table td:nth-child(1) { width: 5%; } /* No */
+.table th:nth-child(2), .table td:nth-child(2) { width: 25%; } /* Nama Kelompok */
+.table th:nth-child(3), .table td:nth-child(3) { width: 20%; } /* Anggota */
+.table th:nth-child(4), .table td:nth-child(4) { width: 25%; } /* Pembimbing */
+.table th:nth-child(5), .table td:nth-child(5) { width: 10%; } /* Status */
+.table th:nth-child(6), .table td:nth-child(6) { width: 15%; } /* Aksi */
+
 /* Tooltip Styling */
 .tooltip {
     font-size: 0.875rem;

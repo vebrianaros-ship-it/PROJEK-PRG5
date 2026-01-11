@@ -132,15 +132,28 @@
                         <div class="card-body">
                             <div class="action-cards">
                                 <a href="{{ route('admin.jadwal-demo.index') }}" class="action-card">
-                                    <div class="action-icon bg-warning">
+                                    <div class="action-icon bg-primary">
                                         <i class="fas fa-calendar-alt"></i>
                                     </div>
                                     <div class="action-content">
-                                        <h6>Jadwal Demo PL</h6>
-                                        <p class="text-muted mb-0">Penjadwalan Demo Proyek Lanjut</p>
+                                        <h6>Jadwal Demo</h6>
+                                        <p class="text-muted mb-0">Penjadwalan Demo Biasa</p>
                                     </div>
                                     <div class="action-badge">
-                                        <span class="badge bg-warning">{{ $stats['jadwal_demo_pending'] }}</span>
+                                        <span class="badge bg-primary">{{ $stats['jadwal_demo_pending'] ?? 0 }}</span>
+                                    </div>
+                                </a>
+
+                                <a href="{{ route('admin.jadwal-demo-pl.index') }}" class="action-card">
+                                    <div class="action-icon bg-warning">
+                                        <i class="fas fa-calendar-plus"></i>
+                                    </div>
+                                    <div class="action-content">
+                                        <h6>Jadwal Demo PL</h6>
+                                        <p class="text-muted mb-0">Penjadwalan Demo Proposal Lanjutan</p>
+                                    </div>
+                                    <div class="action-badge">
+                                        <span class="badge bg-warning">{{ $stats['jadwal_demo_pl_pending'] ?? 0 }}</span>
                                     </div>
                                 </a>
                                 
@@ -153,7 +166,7 @@
                                         <p class="text-muted mb-0">Penjadwalan Sidang Akhir</p>
                                     </div>
                                     <div class="action-badge">
-                                        <span class="badge bg-danger">{{ $stats['jadwal_sidang_pending'] }}</span>
+                                        <span class="badge bg-danger">{{ $stats['jadwal_sidang_pending'] ?? 0 }}</span>
                                     </div>
                                 </a>
                                 
@@ -164,7 +177,7 @@
                                         </div>
                                         <div class="schedule-content">
                                             <span class="schedule-label">Total Jadwal</span>
-                                            <span class="schedule-count">{{ $stats['jadwal_demo_pending'] + $stats['jadwal_sidang_pending'] }} pending</span>
+                                            <span class="schedule-count">{{ ($stats['jadwal_demo_pending'] ?? 0) + ($stats['jadwal_demo_pl_pending'] ?? 0) + ($stats['jadwal_sidang_pending'] ?? 0) }} pending</span>
                                         </div>
                                     </div>
                                 </div>

@@ -107,12 +107,18 @@
                                     <span>Penjadwalan</span>
                                     <i class="fas fa-chevron-down ms-auto"></i>
                                 </a>
-                                <div class="collapse {{ request()->routeIs('admin.jadwal-demo.*') || request()->routeIs('admin.jadwal-sidang.*') ? 'show' : '' }}" id="penjadwalan">
+                                <div class="collapse {{ request()->routeIs('admin.jadwal-demo.*') || request()->routeIs('admin.jadwal-demo-pl.*') || request()->routeIs('admin.jadwal-sidang.*') ? 'show' : '' }}" id="penjadwalan">
                                     <ul class="nav flex-column ms-3">
                                         <li class="nav-item">
-                                            <a class="nav-link {{ request()->routeIs('admin.jadwal-demo.*') ? 'active' : '' }}" 
+                                            <a class="nav-link {{ request()->routeIs('admin.jadwal-demo.*') && !request()->routeIs('admin.jadwal-demo-pl.*') ? 'active' : '' }}" 
                                                href="{{ route('admin.jadwal-demo.index') }}">
-                                                <i class="fas fa-calendar-check"></i> Demo PL
+                                                <i class="fas fa-calendar-check"></i> Demo
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ request()->routeIs('admin.jadwal-demo-pl.*') ? 'active' : '' }}" 
+                                               href="{{ route('admin.jadwal-demo-pl.index') }}">
+                                                <i class="fas fa-calendar-plus"></i> Demo PL
                                             </a>
                                         </li>
                                         <li class="nav-item">
@@ -213,6 +219,41 @@
             padding-top: 56px;
         }
 
+        /* Hide scrollbars for all table-responsive containers */
+        .table-responsive {
+            overflow-x: hidden !important;
+        }
+
+        .table-responsive::-webkit-scrollbar {
+            display: none;
+        }
+
+        .table-responsive {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Ensure tables fit properly */
+        .table {
+            table-layout: auto;
+            width: 100%;
+        }
+
+        .table td, .table th {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        /* Allow text wrapping for specific columns */
+        .table td:nth-child(2), /* Nama kolom */
+        .table td:nth-child(3), /* Anggota/Info kolom */
+        .table td:nth-child(4) { /* Pembimbing/Detail kolom */
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
         .sidebar-nav {
             width: 280px;
             height: calc(100vh - 56px);
@@ -310,6 +351,12 @@
 
             .sidebar-overlay.show {
                 display: block;
+            }
+
+            /* Mobile table adjustments */
+            .table td, .table th {
+                max-width: 150px;
+                font-size: 0.9rem;
             }
         }
 

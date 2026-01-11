@@ -57,4 +57,9 @@ class Kelompok extends Model
     {
         return $this->hasMany(JadwalSidang::class);
     }
+
+    public function jadwalDemoPL()
+    {
+        return $this->hasMany(JadwalDemoPL::class);
+    }
 }

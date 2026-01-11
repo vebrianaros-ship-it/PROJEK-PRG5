@@ -7,6 +7,7 @@ use App\Models\Mahasiswa;
 use App\Models\Dosen;
 use App\Models\Kelompok;
 use App\Models\JadwalDemo;
+use App\Models\JadwalDemoPL;
 use App\Models\JadwalSidang;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,7 @@ class DashboardController extends Controller
             'total_dosen' => Dosen::where('status', true)->count(),
             'total_kelompok' => Kelompok::where('status', true)->count(),
             'jadwal_demo_pending' => JadwalDemo::where('status', 'menunggu')->count(),
+            'jadwal_demo_pl_pending' => JadwalDemoPL::where('status', 'menunggu')->count(),
             'jadwal_sidang_pending' => JadwalSidang::where('status', 'menunggu')->count(),
         ];
 
