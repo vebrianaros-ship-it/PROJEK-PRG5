@@ -14,17 +14,15 @@ class JadwalSidang extends Model
     protected $fillable = [
         'kelompok_id',
         'tanggal',
-        'jam',
+        'jam_mulai',
+        'jam_selesai',
         'lokasi',
         'ketua_sidang',
         'status',
-        'is_locked',
     ];
 
     protected $casts = [
         'tanggal' => 'date',
-        'jam' => 'datetime:H:i',
-        'is_locked' => 'boolean',
     ];
 
     /**

@@ -11,11 +11,18 @@ class AvailabilityController extends Controller
 {
     public function index()
     {
-        // Untuk sementara, gunakan dosen pertama sebagai contoh
-        $dosen = \App\Models\Dosen::first();
+        $user = auth()->user();
+        
+        // Untuk user dosen dengan username 'dosen1', gunakan dosen pertama sebagai default
+        if ($user->username === 'dosen1') {
+            $dosen = \App\Models\Dosen::first();
+        } else {
+            // Coba cari dosen berdasarkan NIP yang sama dengan username
+            $dosen = \App\Models\Dosen::where('nip', $user->username)->first();
+        }
         
         if (!$dosen) {
-            return redirect()->route('dashboard')->with('error', 'Data dosen tidak ditemukan');
+            return redirect()->route('dosen.dashboard')->with('error', 'Data dosen tidak ditemukan. Silakan hubungi administrator.');
         }
 
         $availabilities = AvailabilityDosen::where('dosen_id', $dosen->id)
@@ -29,10 +36,16 @@ class AvailabilityController extends Controller
 
     public function create()
     {
-        $dosen = \App\Models\Dosen::first();
+        $user = auth()->user();
+        
+        if ($user->username === 'dosen1') {
+            $dosen = \App\Models\Dosen::first();
+        } else {
+            $dosen = \App\Models\Dosen::where('nip', $user->username)->first();
+        }
         
         if (!$dosen) {
-            return redirect()->route('dashboard')->with('error', 'Data dosen tidak ditemukan');
+            return redirect()->route('dosen.dashboard')->with('error', 'Data dosen tidak ditemukan. Silakan hubungi administrator.');
         }
 
         return view('dosen.availability.create', compact('dosen'));
@@ -40,7 +53,13 @@ class AvailabilityController extends Controller
 
     public function store(Request $request)
     {
-        $dosen = \App\Models\Dosen::first();
+        $user = auth()->user();
+        
+        if ($user->username === 'dosen1') {
+            $dosen = \App\Models\Dosen::first();
+        } else {
+            $dosen = \App\Models\Dosen::where('nip', $user->username)->first();
+        }
         
         $request->validate([
             'tanggal' => 'required|date|after_or_equal:today',
@@ -86,7 +105,13 @@ class AvailabilityController extends Controller
 
     public function edit(AvailabilityDosen $availability)
     {
-        $dosen = \App\Models\Dosen::first();
+        $user = auth()->user();
+        
+        if ($user->username === 'dosen1') {
+            $dosen = \App\Models\Dosen::first();
+        } else {
+            $dosen = \App\Models\Dosen::where('nip', $user->username)->first();
+        }
         
         if ($availability->dosen_id !== $dosen->id) {
             abort(403, 'Unauthorized');
@@ -97,7 +122,13 @@ class AvailabilityController extends Controller
 
     public function update(Request $request, AvailabilityDosen $availability)
     {
-        $dosen = \App\Models\Dosen::first();
+        $user = auth()->user();
+        
+        if ($user->username === 'dosen1') {
+            $dosen = \App\Models\Dosen::first();
+        } else {
+            $dosen = \App\Models\Dosen::where('nip', $user->username)->first();
+        }
         
         if ($availability->dosen_id !== $dosen->id) {
             abort(403, 'Unauthorized');
@@ -141,7 +172,13 @@ class AvailabilityController extends Controller
 
     public function destroy(AvailabilityDosen $availability)
     {
-        $dosen = \App\Models\Dosen::first();
+        $user = auth()->user();
+        
+        if ($user->username === 'dosen1') {
+            $dosen = \App\Models\Dosen::first();
+        } else {
+            $dosen = \App\Models\Dosen::where('nip', $user->username)->first();
+        }
         
         if ($availability->dosen_id !== $dosen->id) {
             abort(403, 'Unauthorized');

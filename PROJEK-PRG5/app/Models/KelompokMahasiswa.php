@@ -10,6 +10,7 @@ class KelompokMahasiswa extends Model
     use HasFactory;
 
     protected $table = 'kelompok_mahasiswa';
+    public $timestamps = false;
 
     protected $fillable = [
         'kelompok_id',

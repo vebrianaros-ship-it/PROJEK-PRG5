@@ -35,7 +35,7 @@
                                         <tr>
                                             <td>
                                                 <strong>{{ \Carbon\Carbon::parse($demo->tanggal)->format('d/m/Y') }}</strong><br>
-                                                <small class="text-muted">{{ \Carbon\Carbon::parse($demo->jam)->format('H:i') }}</small>
+                                                <small class="text-muted">{{ \Carbon\Carbon::parse($demo->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($demo->jam_selesai)->format('H:i') }}</small>
                                             </td>
                                             <td>
                                                 <strong>{{ $demo->kelompok->nama_kelompok }}</strong><br>
@@ -107,7 +107,7 @@
                                         <tr>
                                             <td>
                                                 <strong>{{ \Carbon\Carbon::parse($sidang->tanggal)->format('d/m/Y') }}</strong><br>
-                                                <small class="text-muted">{{ \Carbon\Carbon::parse($sidang->jam)->format('H:i') }}</small>
+                                                <small class="text-muted">{{ \Carbon\Carbon::parse($sidang->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($sidang->jam_selesai)->format('H:i') }}</small>
                                             </td>
                                             <td>
                                                 <strong>{{ $sidang->kelompok->nama_kelompok }}</strong><br>
