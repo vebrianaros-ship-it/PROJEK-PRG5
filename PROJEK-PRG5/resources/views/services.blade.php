@@ -386,7 +386,7 @@
                 <h3 class="info-title">Komitmen Kualitas</h3>
                 <p class="info-content">
                     Semua layanan kami dirancang dengan standar kualitas tinggi dan terus dievaluasi untuk memastikan kepuasan dan kesuksesan mahasiswa. 
-                    Kami berkomitmen untuk memberikan pengalaman pendidikan terbaik yang mempersiapkan lulusan menjadi tenaga kerja yang kompeten dan siap bersaing di era industri 4.0.0
+                    Kami berkomitmen untuk memberikan pengalaman pendidikan terbaik yang mempersiapkan lulusan menjadi tenaga kerja yang kompeten dan siap bersaing di era industri 4.0
                 </p>
             </div>
         </div>
