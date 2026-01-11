@@ -44,11 +44,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Jam:</strong></td>
-                                    <td>{{ $jadwalDemo->jam }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Lokasi:</strong></td>
-                                    <td>{{ $jadwalDemo->lokasi }}</td>
+                                    <td>{{ $jadwalDemo->jam_mulai }} - {{ $jadwalDemo->jam_selesai }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Status:</strong></td>

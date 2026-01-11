@@ -22,17 +22,17 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="jam" class="form-label">Jam</label>
-                            <input type="time" class="form-control @error('jam') is-invalid @enderror" id="jam" name="jam" value="{{ old('jam', $jadwalDemo->jam) }}" required>
-                            @error('jam')
+                            <label for="jam_mulai" class="form-label">Jam Mulai</label>
+                            <input type="time" class="form-control @error('jam_mulai') is-invalid @enderror" id="jam_mulai" name="jam_mulai" value="{{ old('jam_mulai', $jadwalDemo->jam_mulai) }}" required>
+                            @error('jam_mulai')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="lokasi" class="form-label">Lokasi</label>
-                            <input type="text" class="form-control @error('lokasi') is-invalid @enderror" id="lokasi" name="lokasi" value="{{ old('lokasi', $jadwalDemo->lokasi) }}" required>
-                            @error('lokasi')
+                            <label for="jam_selesai" class="form-label">Jam Selesai</label>
+                            <input type="time" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam_selesai" name="jam_selesai" value="{{ old('jam_selesai', $jadwalDemo->jam_selesai) }}" required>
+                            @error('jam_selesai')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

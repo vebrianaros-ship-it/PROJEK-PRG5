@@ -15,7 +15,7 @@ class JadwalDemoController extends Controller
     {
         $jadwalDemo = JadwalDemo::with(['kelompok.mahasiswa', 'ketuaDemo', 'pengujiSatu', 'pengujiDua', 'pengujiTiga'])
             ->orderBy('tanggal')
-            ->orderBy('jam')
+            ->orderBy('jam_mulai')
             ->paginate(10);
 
         $pendaftaranPending = PendaftaranDemo::where('status', 'disetujui')
@@ -49,8 +49,8 @@ class JadwalDemoController extends Controller
         $request->validate([
             'kelompok_id' => 'required|exists:kelompok,id',
             'tanggal' => 'required|date|after_or_equal:today',
-            'jam' => 'required|date_format:H:i',
-            'lokasi' => 'required|string|max:255',
+            'jam_mulai' => 'required|date_format:H:i',
+            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
             'ketua_demo' => 'required|exists:dosen,id',
             'penguji1' => 'required|exists:dosen,id',
             'penguji2' => 'required|exists:dosen,id',
@@ -78,25 +78,30 @@ class JadwalDemoController extends Controller
         }
 
         // Validasi availability dosen
-        $tanggalJam = $request->tanggal . ' ' . $request->jam;
+        $tanggalJam = $request->tanggal . ' ' . $request->jam_mulai;
         foreach ($dosenIds as $dosenId) {
             $available = AvailabilityDosen::where('dosen_id', $dosenId)
                 ->where('tanggal', $request->tanggal)
-                ->where('jam_mulai', '<=', $request->jam)
-                ->where('jam_selesai', '>', $request->jam)
+                ->where('jam_mulai', '<=', $request->jam_mulai)
+                ->where('jam_selesai', '>', $request->jam_mulai)
                 ->where('status', 'bersedia')
                 ->exists();
 
             if (!$available) {
                 $dosen = Dosen::find($dosenId);
-                return back()->withErrors(['jam' => "Dosen {$dosen->nama} tidak tersedia pada waktu tersebut"]);
+                return back()->withErrors(['jam_mulai' => "Dosen {$dosen->nama} tidak tersedia pada waktu tersebut"]);
             }
         }
 
         // Validasi tidak ada jadwal bentrok untuk dosen
         foreach ($dosenIds as $dosenId) {
             $bentrok = JadwalDemo::where('tanggal', $request->tanggal)
-                ->where('jam', $request->jam)
+                ->where(function($query) use ($request) {
+                    $query->where(function($q) use ($request) {
+                        $q->where('jam_mulai', '<', $request->jam_selesai)
+                          ->where('jam_selesai', '>', $request->jam_mulai);
+                    });
+                })
                 ->where(function($query) use ($dosenId) {
                     $query->where('ketua_demo', $dosenId)
                           ->orWhere('penguji1', $dosenId)
@@ -107,15 +112,15 @@ class JadwalDemoController extends Controller
 
             if ($bentrok) {
                 $dosen = Dosen::find($dosenId);
-                return back()->withErrors(['jam' => "Dosen {$dosen->nama} sudah memiliki jadwal pada waktu tersebut"]);
+                return back()->withErrors(['jam_mulai' => "Dosen {$dosen->nama} sudah memiliki jadwal pada waktu tersebut"]);
             }
         }
 
         JadwalDemo::create([
             'kelompok_id' => $request->kelompok_id,
             'tanggal' => $request->tanggal,
-            'jam' => $request->jam,
-            'lokasi' => $request->lokasi,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai,
             'ketua_demo' => $request->ketua_demo,
             'penguji1' => $request->penguji1,
             'penguji2' => $request->penguji2,
@@ -152,8 +157,8 @@ class JadwalDemoController extends Controller
     {
         $request->validate([
             'tanggal' => 'required|date|after_or_equal:today',
-            'jam' => 'required|date_format:H:i',
-            'lokasi' => 'required|string|max:255',
+            'jam_mulai' => 'required|date_format:H:i',
+            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
             'ketua_demo' => 'required|exists:dosen,id',
             'penguji1' => 'required|exists:dosen,id',
             'penguji2' => 'required|exists:dosen,id',
@@ -165,8 +170,8 @@ class JadwalDemoController extends Controller
 
         $jadwalDemo->update([
             'tanggal' => $request->tanggal,
-            'jam' => $request->jam,
-            'lokasi' => $request->lokasi,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai,
             'ketua_demo' => $request->ketua_demo,
             'penguji1' => $request->penguji1,
             'penguji2' => $request->penguji2,
@@ -188,30 +193,38 @@ class JadwalDemoController extends Controller
     public function getAvailableDosen(Request $request)
     {
         $tanggal = $request->tanggal;
-        $jam = $request->jam;
+        $jam_mulai = $request->jam_mulai;
 
-        if (!$tanggal || !$jam) {
+        if (!$tanggal || !$jam_mulai) {
             return response()->json([]);
         }
 
         $availableDosen = Dosen::where('status', true)
-            ->whereHas('availabilities', function($query) use ($tanggal, $jam) {
+            ->whereHas('availabilities', function($query) use ($tanggal, $jam_mulai) {
                 $query->where('tanggal', $tanggal)
-                      ->where('jam_mulai', '<=', $jam)
-                      ->where('jam_selesai', '>', $jam)
+                      ->where('jam_mulai', '<=', $jam_mulai)
+                      ->where('jam_selesai', '>', $jam_mulai)
                       ->where('status', 'bersedia');
             })
-            ->whereDoesntHave('jadwalDemoAsKetua', function($query) use ($tanggal, $jam) {
-                $query->where('tanggal', $tanggal)->where('jam', $jam);
+            ->whereDoesntHave('jadwalDemoAsKetua', function($query) use ($tanggal, $jam_mulai) {
+                $query->where('tanggal', $tanggal)
+                      ->where('jam_mulai', '<=', $jam_mulai)
+                      ->where('jam_selesai', '>', $jam_mulai);
             })
-            ->whereDoesntHave('jadwalDemoAsPenguji1', function($query) use ($tanggal, $jam) {
-                $query->where('tanggal', $tanggal)->where('jam', $jam);
+            ->whereDoesntHave('jadwalDemoAsPenguji1', function($query) use ($tanggal, $jam_mulai) {
+                $query->where('tanggal', $tanggal)
+                      ->where('jam_mulai', '<=', $jam_mulai)
+                      ->where('jam_selesai', '>', $jam_mulai);
             })
-            ->whereDoesntHave('jadwalDemoAsPenguji2', function($query) use ($tanggal, $jam) {
-                $query->where('tanggal', $tanggal)->where('jam', $jam);
+            ->whereDoesntHave('jadwalDemoAsPenguji2', function($query) use ($tanggal, $jam_mulai) {
+                $query->where('tanggal', $tanggal)
+                      ->where('jam_mulai', '<=', $jam_mulai)
+                      ->where('jam_selesai', '>', $jam_mulai);
             })
-            ->whereDoesntHave('jadwalDemoAsPenguji3', function($query) use ($tanggal, $jam) {
-                $query->where('tanggal', $tanggal)->where('jam', $jam);
+            ->whereDoesntHave('jadwalDemoAsPenguji3', function($query) use ($tanggal, $jam_mulai) {
+                $query->where('tanggal', $tanggal)
+                      ->where('jam_mulai', '<=', $jam_mulai)
+                      ->where('jam_selesai', '>', $jam_mulai);
             })
             ->get(['id', 'nama', 'is_aa']);
 

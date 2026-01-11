@@ -14,8 +14,8 @@ class JadwalDemo extends Model
     protected $fillable = [
         'kelompok_id',
         'tanggal',
-        'jam',
-        'lokasi',
+        'jam_mulai',
+        'jam_selesai',
         'ketua_demo',
         'penguji1',
         'penguji2',
