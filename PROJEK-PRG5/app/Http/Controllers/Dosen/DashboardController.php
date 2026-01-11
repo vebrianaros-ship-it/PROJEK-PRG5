@@ -12,7 +12,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $dosen = auth()->user()->dosen;
+        // Untuk sementara, gunakan dosen pertama sebagai contoh
+        // Nanti bisa disesuaikan dengan sistem login yang sebenarnya
+        $dosen = \App\Models\Dosen::first();
         
         if (!$dosen) {
             return redirect()->route('dashboard')->with('error', 'Data dosen tidak ditemukan');

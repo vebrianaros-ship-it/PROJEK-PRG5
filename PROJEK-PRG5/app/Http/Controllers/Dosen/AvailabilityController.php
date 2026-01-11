@@ -11,7 +11,8 @@ class AvailabilityController extends Controller
 {
     public function index()
     {
-        $dosen = auth()->user()->dosen;
+        // Untuk sementara, gunakan dosen pertama sebagai contoh
+        $dosen = \App\Models\Dosen::first();
         
         if (!$dosen) {
             return redirect()->route('dashboard')->with('error', 'Data dosen tidak ditemukan');
@@ -28,7 +29,7 @@ class AvailabilityController extends Controller
 
     public function create()
     {
-        $dosen = auth()->user()->dosen;
+        $dosen = \App\Models\Dosen::first();
         
         if (!$dosen) {
             return redirect()->route('dashboard')->with('error', 'Data dosen tidak ditemukan');
@@ -39,7 +40,7 @@ class AvailabilityController extends Controller
 
     public function store(Request $request)
     {
-        $dosen = auth()->user()->dosen;
+        $dosen = \App\Models\Dosen::first();
         
         $request->validate([
             'tanggal' => 'required|date|after_or_equal:today',
@@ -85,7 +86,7 @@ class AvailabilityController extends Controller
 
     public function edit(AvailabilityDosen $availability)
     {
-        $dosen = auth()->user()->dosen;
+        $dosen = \App\Models\Dosen::first();
         
         if ($availability->dosen_id !== $dosen->id) {
             abort(403, 'Unauthorized');
@@ -96,7 +97,7 @@ class AvailabilityController extends Controller
 
     public function update(Request $request, AvailabilityDosen $availability)
     {
-        $dosen = auth()->user()->dosen;
+        $dosen = \App\Models\Dosen::first();
         
         if ($availability->dosen_id !== $dosen->id) {
             abort(403, 'Unauthorized');
@@ -140,7 +141,7 @@ class AvailabilityController extends Controller
 
     public function destroy(AvailabilityDosen $availability)
     {
-        $dosen = auth()->user()->dosen;
+        $dosen = \App\Models\Dosen::first();
         
         if ($availability->dosen_id !== $dosen->id) {
             abort(403, 'Unauthorized');
